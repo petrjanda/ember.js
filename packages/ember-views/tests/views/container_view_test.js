@@ -250,14 +250,15 @@ test("if a ContainerView starts with a currentView and then a different currentV
 });
 
 test("ContainerView childViews should be bindable to ArrayProxy", function() {
-  var app = Ember.Application.create();
-  app.set('arrayProxy', Ember.ArrayProxy.create({content: Ember.A()}));
-
-  var container = Ember.ContainerView.create({childViewsBinding: "App.arrayProxy"});
   var view = Ember.View.create({});
+  
+  var container = Ember.ContainerView.create({
+    list: Ember.ArrayProxy.create({content: Ember.A()}),
+    childViewsBinding: 'list'
+  });
 
   Ember.run(function() {
-    app.get('arrayProxy').pushObject(view);
+    console.log(getPath(container, 'list.length'));
   });
 
   equal(getPath(container, 'childViews').get('firstObject'), view, "view should be binded from array proxy"); 
