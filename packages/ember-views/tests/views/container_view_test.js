@@ -261,5 +261,6 @@ test("ContainerView childViews should be bindable to ArrayProxy", function() {
     get(container, 'list').pushObject(view);
   });
 
+  equal(getPath(container, 'childViews.length'), 1, "view should have one child");
   equal(getPath(container, 'childViews').get('firstObject'), view, "view should be binded from array proxy"); 
 });
