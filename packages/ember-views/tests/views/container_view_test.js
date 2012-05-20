@@ -258,7 +258,7 @@ test("ContainerView childViews should be bindable to ArrayProxy", function() {
   });
 
   Ember.run(function() {
-    console.log(getPath(container, 'list.length'));
+    get(container, 'list').pushObject(view);
   });
 
   equal(getPath(container, 'childViews').get('firstObject'), view, "view should be binded from array proxy"); 
