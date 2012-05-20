@@ -248,3 +248,17 @@ test("if a ContainerView starts with a currentView and then a different currentV
   equal(getPath(container, 'childViews.length'), 1, "should have one child view");
   equal(getPath(container, 'childViews').objectAt(0), secondaryView, "should have the currentView as the only child view");
 });
+
+test("ContainerView childViews should be bindable to ArrayProxy", function() {
+  var app = Ember.Application.create();
+  app.set('arrayProxy', Ember.ArrayProxy.create({content: Ember.A()}));
+
+  var container = Ember.ContainerView.create({childViewsBinding: "App.arrayProxy"});
+  var view = Ember.View.create({});
+
+  Ember.run(function() {
+    app.get('arrayProxy').pushObject(view);
+  });
+
+  equal(getPath(container, 'childViews').get('firstObject'), view, "view should be binded from array proxy"); 
+});
